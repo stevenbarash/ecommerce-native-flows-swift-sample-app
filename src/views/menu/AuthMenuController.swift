@@ -12,7 +12,6 @@ class AuthMenuController: UIViewController {
 
     private let options: [Option] = [
         Option(title: "Passkeys", subtitle: "Native passkey sign-in", makeController: PasskeysController.init),
-        Option(title: "Enchanted Link", subtitle: "Email magic link", makeController: EnchantedLinkController.init),
         Option(title: "Custom Code Sign In", subtitle: "Password or SMS OTP via SDK", makeController: NativeLoginController.init),
         Option(title: "Simple Flow", subtitle: "Push DescopeFlowViewController", makeController: SimpleFlowController.init),
         Option(title: "Modal Flow", subtitle: "Preloaded modal flow", makeController: ModalFlowController.init),

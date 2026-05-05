@@ -12,9 +12,6 @@ enum AppInterface {
     /// Display a menu listing every supported authentication option
     case menu
 
-    /// Display a native authentication view for doing enchanted link with email
-    case enchantedLink
-
     /// Display a native authentication view for using passkeys
     case passkeys
 
@@ -44,7 +41,6 @@ extension AppInterface {
         let vc: UIViewController
         switch appInterface {
         case .menu: vc = AuthMenuController()
-        case .enchantedLink: vc = EnchantedLinkController()
         case .passkeys: vc = PasskeysController()
         case .simpleFlow: vc = SimpleFlowController()
         case .modalFlow: vc = ModalFlowController()

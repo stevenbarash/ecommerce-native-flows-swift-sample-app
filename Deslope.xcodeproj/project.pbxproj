@@ -11,8 +11,6 @@
 		2A5A400100000000000000AA /* AuthMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A400100000000000000AB /* AuthMenuController.swift */; };
 		2A5A400100000000000000B0 /* NordTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A400100000000000000B1 /* NordTheme.swift */; };
 		2A5A400100000000000000C0 /* NativeLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A400100000000000000C1 /* NativeLoginController.swift */; };
-		2B4347CE2BDA6F9800F670B2 /* EnchantedLinkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4347CC2BDA6F9800F670B2 /* EnchantedLinkController.swift */; };
-		2B4347CF2BDA6F9800F670B2 /* EnchantedLinkController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B4347CD2BDA6F9800F670B2 /* EnchantedLinkController.xib */; };
 		2B4347D42BDA9FB000F670B2 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4347D22BDA9FB000F670B2 /* HomeViewController.swift */; };
 		2B4347D52BDA9FB000F670B2 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B4347D32BDA9FB000F670B2 /* HomeViewController.xib */; };
 		2B8040D92D5B939C00ED40DA /* PasskeysController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B8040D72D5B939C00ED40DA /* PasskeysController.xib */; };
@@ -33,8 +31,6 @@
 		2A5A400100000000000000AB /* AuthMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthMenuController.swift; sourceTree = "<group>"; };
 		2A5A400100000000000000B1 /* NordTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NordTheme.swift; sourceTree = "<group>"; };
 		2A5A400100000000000000C1 /* NativeLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeLoginController.swift; sourceTree = "<group>"; };
-		2B4347CC2BDA6F9800F670B2 /* EnchantedLinkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnchantedLinkController.swift; sourceTree = "<group>"; };
-		2B4347CD2BDA6F9800F670B2 /* EnchantedLinkController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnchantedLinkController.xib; sourceTree = "<group>"; };
 		2B4347D22BDA9FB000F670B2 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		2B4347D32BDA9FB000F670B2 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		2B8040D62D5B939C00ED40DA /* PasskeysController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasskeysController.swift; sourceTree = "<group>"; };
@@ -66,13 +62,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2B4347CB2BDA6F8400F670B2 /* enchantedlink */ = {
+		2A5A400100000000000000AC /* menu */ = {
 			isa = PBXGroup;
 			children = (
-				2B4347CC2BDA6F9800F670B2 /* EnchantedLinkController.swift */,
-				2B4347CD2BDA6F9800F670B2 /* EnchantedLinkController.xib */,
+				2A5A400100000000000000AB /* AuthMenuController.swift */,
 			);
-			path = enchantedlink;
+			path = menu;
+			sourceTree = "<group>";
+		};
+		2A5A400100000000000000C2 /* nativelogin */ = {
+			isa = PBXGroup;
+			children = (
+				2A5A400100000000000000C1 /* NativeLoginController.swift */,
+			);
+			path = nativelogin;
 			sourceTree = "<group>";
 		};
 		2B4347D02BDA80E700F670B2 /* app */ = {
@@ -145,7 +148,6 @@
 			children = (
 				2A5A400100000000000000AC /* menu */,
 				2A5A400100000000000000C2 /* nativelogin */,
-				2B4347CB2BDA6F8400F670B2 /* enchantedlink */,
 				2B8040D82D5B939C00ED40DA /* passkeys */,
 				2BEB4AB42CECC18B004AA068 /* simpleflow */,
 				2BEB4AAF2CECB4CE004AA068 /* modalflow */,
@@ -153,22 +155,6 @@
 				2B4347D12BDA9F6D00F670B2 /* home */,
 			);
 			path = views;
-			sourceTree = "<group>";
-		};
-		2A5A400100000000000000AC /* menu */ = {
-			isa = PBXGroup;
-			children = (
-				2A5A400100000000000000AB /* AuthMenuController.swift */,
-			);
-			path = menu;
-			sourceTree = "<group>";
-		};
-		2A5A400100000000000000C2 /* nativelogin */ = {
-			isa = PBXGroup;
-			children = (
-				2A5A400100000000000000C1 /* NativeLoginController.swift */,
-			);
-			path = nativelogin;
 			sourceTree = "<group>";
 		};
 		2BE995272C5B9FB3008228C0 /* inlineflow */ = {
@@ -259,7 +245,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B4347CF2BDA6F9800F670B2 /* EnchantedLinkController.xib in Resources */,
 				2BEB4AB72CECC1A5004AA068 /* SimpleFlowController.xib in Resources */,
 				2B4347D52BDA9FB000F670B2 /* HomeViewController.xib in Resources */,
 				2BEB4AB22CECB4E0004AA068 /* ModalFlowController.xib in Resources */,
@@ -280,7 +265,6 @@
 				2A5A400100000000000000AA /* AuthMenuController.swift in Sources */,
 				2A5A400100000000000000B0 /* NordTheme.swift in Sources */,
 				2A5A400100000000000000C0 /* NativeLoginController.swift in Sources */,
-				2B4347CE2BDA6F9800F670B2 /* EnchantedLinkController.swift in Sources */,
 				2BEB4AB32CECB4E0004AA068 /* ModalFlowController.swift in Sources */,
 				2B8040DA2D5B939C00ED40DA /* PasskeysController.swift in Sources */,
 				2BEB4AAB2CEB9D8E004AA068 /* AppInterface.swift in Sources */,

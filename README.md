@@ -13,7 +13,6 @@ This sample app includes:
 - **Modal Flow**: Preload a flow in the background and present it modally when ready
 - **Inline Flow**: Embed a `DescopeFlowView` directly in the view hierarchy with custom animations
 - **Passkeys**: Native passkey sign-in using the Descope SDK
-- **Enchanted Link**: Email-based magic link authentication
 - **Native Login**: Password sign-in and SMS OTP backed by the Descope SDK directly (no hosted webview)
 
 ## Getting Started
@@ -27,30 +26,48 @@ Make sure you have the following installed:
 
 ### Run the app
 
-1. Clone this repo
-2. Open the project within Xcode
-3. Within the project settings of the project, change the `myProjectId` (If in a non-US region, or using a custom domain with CNAME, replace `myBaseURL` with your specific localized base URL)
+1. Clone this repo and open the `.xcodeproj` in Xcode.
+2. Set your **Descope Project ID** — this is the only required configuration:
+   - In Xcode, select the **project** (top item) in the navigator, then select the **Deslope** target.
+   - Go to the **Build Settings** tab and search for `myProjectId`.
+   - Replace the placeholder with your Project ID from the [Descope Console](https://app.descope.com/settings/project).
+   - **US region users**: leave `myBaseURL` as-is (the default works). Only change it if you are in a non-US region or using a custom CNAME domain.
 
-![Alt text](.github/images/setProjectId.png?raw=true "Set Project ID")
+   ![Alt text](.github/images/setProjectId.png?raw=true "Set Project ID")
+
+3. Press **Run** (▶) in the top-left to build and launch on the iOS Simulator. The app opens to a menu where you can try each authentication method.
 
 4. **(Optional) Self-Host Your Flow**: Your Descope authentication flow is automatically hosted by Descope at `https://auth.descope.io/<your_descope_project_id>` but you can use your own website or domain to host your flow. You can modify the value for the flow URL in the Flow Controller files to include your own hosted page with our Descope Web Component, as well as alter the `?flow=sign-up-or-in` parameter to run a different flow.
 
-```swift
-let flow = DescopeFlow(url: "https://api.descope.com/login/\(Descope.config.projectId)?flow=sign-up-or-in")
-```
+   ```swift
+   let flow = DescopeFlow(url: "https://api.descope.com/login/\(Descope.config.projectId)?flow=sign-up-or-in")
+   ```
 
-> For more information about Auth Hosting, visit our docs on it [here](https://docs.descope.com/auth-hosting-app)
+   > For more information about Auth Hosting, visit our docs on it [here](https://docs.descope.com/auth-hosting-app)
 
-5. Run the simulator within Xcode - The play button located in the top left
+### What you'll see
 
-7. Change the value of the `appInterface` value in `AppInterface.swift` to see other examples of authentication screens
+The app launches to a menu listing every supported authentication method. Tap any row to try it. Each screen demonstrates a different integration approach — from a single-line flow push to a fully custom native login surface. After signing in, you'll land on a home screen with a **Sign Out** button.
 
-### Notes:
+### Passkeys setup
 
-1. Enchanted link currently does not route back to the application. You will need to validate the token externally from a web or backend client.
+Passkeys require additional configuration before they will work:
 
-- https://docs.descope.com/build/guides/client_sdks/enchanted-link/#user-verification
-- https://docs.descope.com/build/guides/backend_sdks/enchanted-link/#user-verification
+1. **Descope Console**: Go to [Authentication > Passkeys/WebAuthn](https://app.descope.com/settings/authentication/webauthn), enable passkeys, and configure your **top-level domain**.
+2. **Associated Domains**: In Xcode, go to the **Deslope** target > **Signing & Capabilities** > **Associated Domains** and add an entry with the `webcredentials` service type whose value matches the top-level domain you configured above.
+3. **Apple Developer account**: Associated domains require a paid Apple Developer account and a real device or simulator signed in to an Apple ID.
+
+See Apple's [Supporting passkeys](https://developer.apple.com/documentation/authenticationservices/public-private_key_authentication/supporting_passkeys/) guide for full details.
+
+### Troubleshooting
+
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| App crashes on launch with `Missing myProjectId or myBaseURL in Info.plist` | Build settings not configured | Set `myProjectId` in Build Settings (step 2 above) |
+| Flow screen shows a blank white page | Wrong or missing Project ID | Verify your Project ID in the [Descope Console](https://app.descope.com/settings/project) |
+| Passkey dialog doesn't appear | Missing associated domain or WebAuthn not enabled | Follow the [Passkeys setup](#passkeys-setup) section above |
+| Passkey fails with "passkeyFailed" error | Domain mismatch | Ensure the associated domain in Xcode matches the top-level domain in the Descope Console |
+| "Network error" on any screen | No internet or wrong `myBaseURL` | Check connectivity; US region users should leave `myBaseURL` at the default |
 
 ## Learn More
 To learn more please see the [Descope Documentation and API reference page](https://docs.descope.com/).
