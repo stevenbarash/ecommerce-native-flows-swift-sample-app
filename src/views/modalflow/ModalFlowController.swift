@@ -17,9 +17,17 @@ class ModalFlowController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // start the flow immediately when the controller is created so that ideally the user
-        // won't experience any loading times or layout updates when the flow is shown
-        startFlow()
+        applyNordEcommerceShell(
+            headline: "NORDSTROM",
+            subhead: "Welcome back",
+            body: "Sign in to checkout faster, manage your wishlist, and earn Nordy Club points on every purchase.",
+            cta: "Sign In"
+        )
+
+        // preload after the push animation kicks off so WKWebView init doesn't stall the transition
+        DispatchQueue.main.async { [weak self] in
+            self?.startFlow()
+        }
     }
 
     // Actions
@@ -48,18 +56,15 @@ class ModalFlowController: UIViewController {
     // Flow
 
     func startFlow() {
-        // create a new flow object
-        let flow = DescopeFlow(url: "https://api.descope.com/login/\(Descope.config.projectId)?flow=sign-up-or-in")
-        
-        // we present the flow full screen so we use a flow hook to disable scrolling
-        flow.hooks = [
-            .setupScrollView({ scrollView in
-                scrollView.isScrollEnabled = false
-                scrollView.contentInsetAdjustmentBehavior = .never
-            }),
-        ]
+        let flow = DescopeFlow.nordSignIn()
+        // present full-screen, disable inner scrolling so the modal feels native
+        flow.hooks.append(.setupScrollView { scrollView in
+            scrollView.isScrollEnabled = false
+            scrollView.contentInsetAdjustmentBehavior = .never
+            scrollView.backgroundColor = .white
+        })
 
-        // start loading the flow
+        flowViewController.view.backgroundColor = .white
         flowViewController.delegate = self
         flowViewController.start(flow: flow)
     }

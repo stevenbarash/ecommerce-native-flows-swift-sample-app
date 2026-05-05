@@ -4,12 +4,17 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Welcome to Descope's Native Flows Swift Sample App, a demonstration of how to integrate Descope native flows for user authentication within a Swift application. By exploring this project, you can understand how Descope works with Swift to manage native flows. For an example with all authentication methods, refer to the [Swift Sample App](https://github.com/descope-sample-apps/swift-sample-app).
+Welcome to Descope's Native Flows Swift Sample App, a demonstration of how to integrate Descope [native flows](https://docs.descope.com/build/guides/gettingstarted/) for user authentication within a Swift application. Native flows are authentication UIs built in the Descope flow editor and rendered inside your app via `DescopeFlowViewController` or `DescopeFlowView`. By exploring this project, you can understand how Descope works with Swift to manage native flows. For an example with all authentication methods, refer to the [Swift Sample App](https://github.com/descope-sample-apps/swift-sample-app).
 
 ## Features
 This sample app includes:
 
-- **App Client**: An example of how the client communicates with Descope.
+- **Simple Flow**: Push a `DescopeFlowViewController` onto a navigation stack
+- **Modal Flow**: Preload a flow in the background and present it modally when ready
+- **Inline Flow**: Embed a `DescopeFlowView` directly in the view hierarchy with custom animations
+- **Passkeys**: Native passkey sign-in using the Descope SDK
+- **Enchanted Link**: Email-based magic link authentication
+- **Native Login**: Password sign-in and SMS OTP backed by the Descope SDK directly (no hosted webview)
 
 ## Getting Started
 Follow these steps to run the sample app and explore Descope's capabilities with Swift:
@@ -17,8 +22,8 @@ Follow these steps to run the sample app and explore Descope's capabilities with
 ### Prerequisites
 Make sure you have the following installed:
 
-- XCode
-- an IOS Simulator
+- Xcode
+- an iOS Simulator
 
 ### Run the app
 

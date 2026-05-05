@@ -8,6 +8,16 @@ class PasskeysController: UIViewController {
     @IBOutlet var emailButton: UIButton!
     @IBOutlet var loadingContainer: UIStackView!
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        applyNordEcommerceShell(
+            headline: "NORDSTROM",
+            subhead: "Sign in faster",
+            body: "Use a passkey for one-tap secure sign in. No passwords. Your bag, wishlist, and order history follow you everywhere.",
+            cta: "Continue with Passkey"
+        )
+    }
+
     // Actions
 
     @IBAction func didPressSignIn() {

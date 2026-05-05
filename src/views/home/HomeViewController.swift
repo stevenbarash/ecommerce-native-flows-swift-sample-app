@@ -8,8 +8,21 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Showing checkin screen")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(didPressSignOut))
+        print("Showing home screen")
+        view.backgroundColor = NordColor.white
+
+        let wordmark = UILabel()
+        wordmark.attributedText = .nordWordmark()
+        navigationItem.titleView = wordmark
+
+        let signOut = UIBarButtonItem(title: nil, style: .plain, target: self, action: #selector(didPressSignOut))
+        signOut.setTitleTextAttributes([
+            .font: NordFont.cta,
+            .kern: 1.1,
+            .foregroundColor: NordColor.black,
+        ], for: .normal)
+        signOut.title = "SIGN OUT"
+        navigationItem.rightBarButtonItem = signOut
     }
 
     // Actions

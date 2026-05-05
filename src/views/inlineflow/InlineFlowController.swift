@@ -19,11 +19,53 @@ class InlineFlowController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        applyNordEcommerceShell(
+            headline: "NORDSTROM",
+            subhead: "Your style awaits",
+            body: "Sign in to access curated edits, designer drops, and your saved looks anywhere you shop.",
+            cta: "Sign In",
+            expandsContainerToFill: true,
+            embedsBackButton: true
+        )
+
         // add the DescopeFlowView into the controller's view hierarchy
         addFlowView()
 
-        // start the flow immediately when the controller is created
-        startFlow()
+        // collapse the hero panel when the keyboard rises so the input scrolls into the freed space
+        registerKeyboardObservers()
+
+        // preload after the push animation kicks off so WKWebView init doesn't stall the transition
+        DispatchQueue.main.async { [weak self] in
+            self?.startFlow()
+        }
+    }
+
+    private var heroHiddenConstraint: NSLayoutConstraint?
+
+    private func registerKeyboardObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    @objc private func handleKeyboardWillShow() {
+        guard let hero = nordHeroPanel, !hero.isHidden else { return }
+        if heroHiddenConstraint == nil {
+            heroHiddenConstraint = hero.heightAnchor.constraint(equalToConstant: 0)
+        }
+        heroHiddenConstraint?.isActive = true
+        UIView.animate(withDuration: 0.25) { [weak self] in
+            hero.alpha = 0
+            self?.view.layoutIfNeeded()
+        }
+    }
+
+    @objc private func handleKeyboardWillHide() {
+        guard let hero = nordHeroPanel else { return }
+        heroHiddenConstraint?.isActive = false
+        UIView.animate(withDuration: 0.25) { [weak self] in
+            hero.alpha = 1
+            self?.view.layoutIfNeeded()
+        }
     }
 
     // Actions
@@ -52,27 +94,36 @@ class InlineFlowController: UIViewController {
     // Flow
 
     func startFlow() {
-        // create a new flow object
-        let flow = DescopeFlow(url: "https://api.descope.com/login/\(Descope.config.projectId)?flow=sign-up-or-in")
-
-        // since we're presenting the flow inline in our view hierarchy we use a flow hook to
-        // override the page background to be transparent and hide the scroll bars
-        flow.hooks = [
-            .setTransparentBody,
-            .setupScrollView({ scrollView in
-                scrollView.showsVerticalScrollIndicator = false
-            })
-        ]
-
-        // start loading the flow
+        let flow = DescopeFlow.nordSignIn(lockScroll: true)
+        flow.hooks.append(.setupScrollView { scrollView in
+            scrollView.isScrollEnabled = false
+            scrollView.bounces = false
+            scrollView.alwaysBounceVertical = false
+            scrollView.showsVerticalScrollIndicator = false
+            scrollView.contentInsetAdjustmentBehavior = .never
+            scrollView.backgroundColor = .white
+        })
         flowView.delegate = self
         flowView.start(flow: flow)
     }
 
     func addFlowView() {
+        containerView.backgroundColor = .white
+        flowView.backgroundColor = .white
         flowView.frame = containerView.bounds
         flowView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         containerView.addSubview(flowView)
+
+        // walk every constraint involving containerView and kill the bottom-to-superview pin from the XIB
+        let allConstraints = (containerView.superview?.constraints ?? []) + view.constraints
+        for constraint in allConstraints where constraint.isActive {
+            let firstIsContainer = constraint.firstItem === containerView
+            let secondIsContainer = constraint.secondItem === containerView
+            guard firstIsContainer || secondIsContainer else { continue }
+            let containerSide = firstIsContainer ? constraint.firstAttribute : constraint.secondAttribute
+            if containerSide == .bottom { constraint.isActive = false }
+        }
+        containerView.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor).isActive = true
     }
 
     func resetFlowView() {

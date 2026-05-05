@@ -4,24 +4,43 @@ import DescopeKit
 
 class SimpleFlowController: UIViewController {
 
+    /// Preloaded flow controller; webview init runs off the tap path so push feels instant.
+    private var flowViewController = DescopeFlowViewController()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        applyNordEcommerceShell(
+            headline: "NORDSTROM",
+            subhead: "Member exclusive",
+            body: "Sign in to save your bag, view order history, and unlock free shipping on every order.",
+            cta: "Sign In to Shop"
+        )
+
+        // preload after the push animation kicks off so WKWebView init doesn't stall the transition
+        DispatchQueue.main.async { [weak self] in
+            self?.preloadFlow()
+        }
+    }
+
+    private func preloadFlow() {
+        let flow = DescopeFlow.nordSignIn()
+        flow.hooks.append(.setupScrollView { scrollView in
+            scrollView.backgroundColor = .white
+            scrollView.contentInsetAdjustmentBehavior = .never
+        })
+        flowViewController.view.backgroundColor = .white
+        flowViewController.delegate = self
+        flowViewController.start(flow: flow)
+    }
+
     /// This action is called when the user taps the Sign In button
     @IBAction func didPressSignIn() {
         print("Starting sign in with flow")
         showFlow()
     }
 
-    /// Creates a new DescopeFlowViewController, loads the flow into it, and pushes
-    /// it onto the navigation controller stack
+    /// Pushes the preloaded DescopeFlowViewController onto the navigation stack
     func showFlow() {
-        // create a new flow object
-        let flow = DescopeFlow(url: "https://api.descope.com/login/\(Descope.config.projectId)?flow=sign-up-or-in")
-
-        // create a new DescopeFlowViewController and start loading the flow
-        let flowViewController = DescopeFlowViewController()
-        flowViewController.delegate = self
-        flowViewController.start(flow: flow)
-
-        // push the view controller onto the navigation controller
         navigationController?.pushViewController(flowViewController, animated: true)
     }
 
@@ -44,8 +63,8 @@ extension SimpleFlowController: DescopeFlowViewControllerDelegate {
     }
     
     func flowViewControllerDidBecomeReady(_ controller: DescopeFlowViewController) {
-        // in this example we don't need to handle the ready event because we're
-        // just showing the flow immediately without preloading it or anything
+        // the flow is preloaded in the background; the user navigates to it on
+        // tap regardless of ready state, so no ready-event handling is needed
     }
     
     func flowViewControllerShouldShowURL(_ controller: DescopeFlowViewController, url: URL, external: Bool) -> Bool {

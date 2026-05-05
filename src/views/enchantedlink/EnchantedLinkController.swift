@@ -9,6 +9,16 @@ class EnchantedLinkController: UIViewController {
     @IBOutlet var loadingContainer: UIStackView!
     @IBOutlet var linkSentLabel: UILabel!
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        applyNordEcommerceShell(
+            headline: "NORDSTROM",
+            subhead: "Skip the password",
+            body: "Enter your email and we'll send a secure link. Tap it on this device and you're shopping in seconds.",
+            cta: "Email Me a Link"
+        )
+    }
+
     // Actions
 
     @IBAction func didPressSignIn() {

@@ -1,13 +1,17 @@
 
 import UIKit
 
-/// Which authentication screen to show when the app runs
+/// Which authentication screen to show when the app runs.
+/// Set to `.menu` to pick at runtime; otherwise launches directly into the chosen flow.
 @MainActor
-var appInterface = AppInterface.passkeys
+var appInterface = AppInterface.menu
 
 /// The kinds of authentication screens supported by the app
 @MainActor
 enum AppInterface {
+    /// Display a menu listing every supported authentication option
+    case menu
+
     /// Display a native authentication view for doing enchanted link with email
     case enchantedLink
 
@@ -28,6 +32,10 @@ enum AppInterface {
     /// DescopeFlowView instead of a controller, embeds the view into
     /// the view hierarchy, and shows it with a custom animation
     case inlineFlow
+
+    /// Native UIKit login surface backed by the Descope SDK directly — supports
+    /// password sign-in and SMS OTP without using a hosted webview flow
+    case nativeLogin
 }
 
 /// Convenience functions for creating view controllers
@@ -35,23 +43,43 @@ extension AppInterface {
     static func createAuthScreen() -> UIViewController {
         let vc: UIViewController
         switch appInterface {
+        case .menu: vc = AuthMenuController()
         case .enchantedLink: vc = EnchantedLinkController()
         case .passkeys: vc = PasskeysController()
         case .simpleFlow: vc = SimpleFlowController()
         case .modalFlow: vc = ModalFlowController()
         case .inlineFlow: vc = InlineFlowController()
+        case .nativeLogin: vc = NativeLoginController()
         }
-        return UINavigationController(rootViewController: vc)
+        let nav = UINavigationController(rootViewController: vc)
+        applyNordAppearance(to: nav)
+        return nav
     }
 
     static func createHomeScreen() -> UIViewController {
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithDefaultBackground()
-
         let nav = UINavigationController(rootViewController: HomeViewController())
+        applyNordAppearance(to: nav)
+        return nav
+    }
+
+    private static func applyNordAppearance(to nav: UINavigationController) {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = NordColor.white
+        appearance.shadowColor = NordColor.gray200
+        appearance.titleTextAttributes = [
+            .font: UIFont.systemFont(ofSize: 17, weight: .black),
+            .foregroundColor: NordColor.black,
+            .kern: 1.6,
+        ]
+        appearance.largeTitleTextAttributes = [
+            .font: NordFont.serif(size: 32, weight: .bold),
+            .foregroundColor: NordColor.black,
+        ]
         nav.navigationBar.standardAppearance = appearance
         nav.navigationBar.scrollEdgeAppearance = appearance
-        return nav
+        nav.navigationBar.tintColor = NordColor.black
+        nav.view.tintColor = NordColor.black
     }
 }
 
@@ -76,7 +104,7 @@ extension AppInterface {
         // we must have a window to perform the transition on
         guard let window = viewControllerWindow ?? navigationControllerWindow else { preconditionFailure("Attempt to transition without a window") }
 
-        UIView.transition(with: window, duration: 1, options: .transitionFlipFromRight) {
+        UIView.transition(with: window, duration: 0.4, options: [.transitionCrossDissolve, .curveEaseOut]) {
             window.rootViewController = to
         }
     }

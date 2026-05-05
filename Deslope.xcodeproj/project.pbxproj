@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B0A90C32D2FC58200AE854B /* DescopeKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2B0A90C22D2FC58200AE854B /* DescopeKit */; };
+		2A5A3FDD2F9C05BD00058B97 /* DescopeKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2A5A3FDC2F9C05BD00058B97 /* DescopeKit */; };
+		2A5A400100000000000000AA /* AuthMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A400100000000000000AB /* AuthMenuController.swift */; };
+		2A5A400100000000000000B0 /* NordTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A400100000000000000B1 /* NordTheme.swift */; };
+		2A5A400100000000000000C0 /* NativeLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A400100000000000000C1 /* NativeLoginController.swift */; };
 		2B4347CE2BDA6F9800F670B2 /* EnchantedLinkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4347CC2BDA6F9800F670B2 /* EnchantedLinkController.swift */; };
 		2B4347CF2BDA6F9800F670B2 /* EnchantedLinkController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B4347CD2BDA6F9800F670B2 /* EnchantedLinkController.xib */; };
 		2B4347D42BDA9FB000F670B2 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4347D22BDA9FB000F670B2 /* HomeViewController.swift */; };
@@ -27,6 +30,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A5A400100000000000000AB /* AuthMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthMenuController.swift; sourceTree = "<group>"; };
+		2A5A400100000000000000B1 /* NordTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NordTheme.swift; sourceTree = "<group>"; };
+		2A5A400100000000000000C1 /* NativeLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeLoginController.swift; sourceTree = "<group>"; };
 		2B4347CC2BDA6F9800F670B2 /* EnchantedLinkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnchantedLinkController.swift; sourceTree = "<group>"; };
 		2B4347CD2BDA6F9800F670B2 /* EnchantedLinkController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnchantedLinkController.xib; sourceTree = "<group>"; };
 		2B4347D22BDA9FB000F670B2 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -53,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B0A90C32D2FC58200AE854B /* DescopeKit in Frameworks */,
+				2A5A3FDD2F9C05BD00058B97 /* DescopeKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +80,7 @@
 			children = (
 				2BA668832BDA62E9000D7F9D /* AppDelegate.swift */,
 				2BEB4AAA2CEB9D8C004AA068 /* AppInterface.swift */,
+				2A5A400100000000000000B1 /* NordTheme.swift */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -136,6 +143,8 @@
 		2BA668B42BDA661B000D7F9D /* views */ = {
 			isa = PBXGroup;
 			children = (
+				2A5A400100000000000000AC /* menu */,
+				2A5A400100000000000000C2 /* nativelogin */,
 				2B4347CB2BDA6F8400F670B2 /* enchantedlink */,
 				2B8040D82D5B939C00ED40DA /* passkeys */,
 				2BEB4AB42CECC18B004AA068 /* simpleflow */,
@@ -144,6 +153,22 @@
 				2B4347D12BDA9F6D00F670B2 /* home */,
 			);
 			path = views;
+			sourceTree = "<group>";
+		};
+		2A5A400100000000000000AC /* menu */ = {
+			isa = PBXGroup;
+			children = (
+				2A5A400100000000000000AB /* AuthMenuController.swift */,
+			);
+			path = menu;
+			sourceTree = "<group>";
+		};
+		2A5A400100000000000000C2 /* nativelogin */ = {
+			isa = PBXGroup;
+			children = (
+				2A5A400100000000000000C1 /* NativeLoginController.swift */,
+			);
+			path = nativelogin;
 			sourceTree = "<group>";
 		};
 		2BE995272C5B9FB3008228C0 /* inlineflow */ = {
@@ -201,7 +226,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 2640;
 				TargetAttributes = {
 					2BA6687F2BDA62E9000D7F9D = {
 						CreatedOnToolsVersion = 15.0.1;
@@ -218,7 +243,7 @@
 			);
 			mainGroup = 2BA668772BDA62E9000D7F9D;
 			packageReferences = (
-				2B0A90C12D2FC58200AE854B /* XCRemoteSwiftPackageReference "descope-swift" */,
+				2A5A3FDB2F9C05BD00058B97 /* XCRemoteSwiftPackageReference "descope-swift" */,
 			);
 			productRefGroup = 2BA668812BDA62E9000D7F9D /* Products */;
 			projectDirPath = "";
@@ -252,6 +277,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A5A400100000000000000AA /* AuthMenuController.swift in Sources */,
+				2A5A400100000000000000B0 /* NordTheme.swift in Sources */,
+				2A5A400100000000000000C0 /* NativeLoginController.swift in Sources */,
 				2B4347CE2BDA6F9800F670B2 /* EnchantedLinkController.swift in Sources */,
 				2BEB4AB32CECB4E0004AA068 /* ModalFlowController.swift in Sources */,
 				2B8040DA2D5B939C00ED40DA /* PasskeysController.swift in Sources */,
@@ -312,6 +340,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 6DHGP65953;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -335,6 +364,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -375,6 +405,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 6DHGP65953;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -391,6 +422,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -405,9 +437,9 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6DHGP65953;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = res/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Nordstrom;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -427,8 +459,8 @@
 				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				myBaseURL = "https://api.descope.com";
-				myProjectId = P2p5GqW3w7dboEMRjB3em3QHFeoA;
+				myBaseURL = "https://auth.barashsteven.com";
+				myProjectId = P3CwfvL5WGqqkOlt5qCT0n8pWKEG;
 			};
 			name = Debug;
 		};
@@ -441,9 +473,9 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6DHGP65953;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = res/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Nordstrom;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -463,8 +495,8 @@
 				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				myBaseURL = "https://api.descope.com";
-				myProjectId = P2p5GqW3w7dboEMRjB3em3QHFeoA;
+				myBaseURL = "https://auth.barashsteven.com";
+				myProjectId = P3CwfvL5WGqqkOlt5qCT0n8pWKEG;
 			};
 			name = Release;
 		};
@@ -492,20 +524,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2B0A90C12D2FC58200AE854B /* XCRemoteSwiftPackageReference "descope-swift" */ = {
+		2A5A3FDB2F9C05BD00058B97 /* XCRemoteSwiftPackageReference "descope-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/descope/descope-swift";
 			requirement = {
-				kind = exactVersion;
-				version = 0.9.12;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.11.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2B0A90C22D2FC58200AE854B /* DescopeKit */ = {
+		2A5A3FDC2F9C05BD00058B97 /* DescopeKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2B0A90C12D2FC58200AE854B /* XCRemoteSwiftPackageReference "descope-swift" */;
+			package = 2A5A3FDB2F9C05BD00058B97 /* XCRemoteSwiftPackageReference "descope-swift" */;
 			productName = DescopeKit;
 		};
 /* End XCSwiftPackageProductDependency section */
