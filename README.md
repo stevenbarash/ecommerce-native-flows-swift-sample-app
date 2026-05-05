@@ -59,6 +59,53 @@ Passkeys require additional configuration before they will work:
 
 See Apple's [Supporting passkeys](https://developer.apple.com/documentation/authenticationservices/public-private_key_authentication/supporting_passkeys/) guide for full details.
 
+### Magic Link and OAuth Universal Links setup
+
+If your flows use Magic Link authentication or OAuth, the user needs to be redirected back into the app via [Universal Links](https://developer.apple.com/ios/universal-links/). Follow these steps:
+
+#### 1. Configure Associated Domains in Xcode
+
+Even if you use another editor for development, Xcode is required for configuring iOS App Capabilities.
+
+- Open your project in Xcode and select your target app from the left panel.
+- Navigate to the **Signing & Capabilities** tab.
+- Ensure the correct **Team** is selected and your **Bundle Identifier** is correct.
+- Click **+ Capability** and add **Associated Domains**.
+- Under "Domains", add your domain in the format: `applinks:yourdomain.example.com`. This must match exactly with the domain hosting your Apple App Site Association file.
+
+#### 2. Deploy the `apple-app-site-association` file
+
+This JSON file must be publicly accessible at: `https://yourdomain.example.com/.well-known/apple-app-site-association`
+
+```json
+{
+  "applinks": {
+    "details": [
+      {
+        "appID": "<APPLE_TEAM_ID>.<BUNDLE_IDENTIFIER>",
+        "paths": [
+          "*/auth/callback",
+          "/login/*"
+        ]
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": [
+      "<APPLE_TEAM_ID>.<BUNDLE_IDENTIFIER>"
+    ]
+  }
+}
+```
+
+- **`APPLE_TEAM_ID`**: Found in your [Apple Developer account](https://developer.apple.com/account).
+- **`BUNDLE_IDENTIFIER`**: Must match your app's bundle ID (e.g., `com.descope.Deslope`).
+- The file must be served with `Content-Type: application/json` and must not have a `.json` file extension.
+
+#### 3. Ensure redirect URLs match
+
+The links sent in Magic Link or OAuth emails must begin with `https://yourdomain.example.com/login...` (or match the paths in your `apple-app-site-association` file). The app handles incoming Universal Links in `AppDelegate.swift` via `Descope.handleURL(url)`.
+
 ### Troubleshooting
 
 | Symptom | Cause | Fix |
